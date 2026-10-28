@@ -536,5 +536,6 @@
   "booking.done.requestedBody": "Du erhältst eine E-Mail, sobald die Anfrage bestätigt ist.",
   "booking.done.pending": "Zahlung wird verarbeitet",
   "booking.done.cancelled": "Dieser Termin wurde storniert oder ist abgelaufen.",
-  "booking.done.ics": "Zu meinem Kalender (.ics)"
+  "booking.done.ics": "Zu meinem Kalender (.ics)",
+  "studio.nav.booking": "Buchungen"
 }

@@ -536,5 +536,6 @@
   "booking.done.requestedBody": "Je krijgt een e-mail zodra de aanvraag bevestigd is.",
   "booking.done.pending": "Betaling wordt verwerkt",
   "booking.done.cancelled": "Deze afspraak is geannuleerd of verlopen.",
-  "booking.done.ics": "Zet in mijn agenda (.ics)"
+  "booking.done.ics": "Zet in mijn agenda (.ics)",
+  "studio.nav.booking": "Boekingen"
 }

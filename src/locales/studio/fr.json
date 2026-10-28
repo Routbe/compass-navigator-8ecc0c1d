@@ -536,5 +536,6 @@
   "booking.done.requestedBody": "Vous recevrez un e-mail dès la confirmation.",
   "booking.done.pending": "Paiement en cours",
   "booking.done.cancelled": "Ce rendez-vous a été annulé ou a expiré.",
-  "booking.done.ics": "Ajouter à mon agenda (.ics)"
+  "booking.done.ics": "Ajouter à mon agenda (.ics)",
+  "studio.nav.booking": "Réservations"
 }

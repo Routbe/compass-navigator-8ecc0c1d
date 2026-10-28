@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { ProfileEditor, type ProfileVariant } from "@/components/dashboard/ProfileEditor";
-import { BadgeCheck, Lock, Sparkles, HeartHandshake, ChevronDown, Check } from "lucide-react";
+import { BadgeCheck, Lock, Sparkles, HeartHandshake, ChevronDown, Check, CalendarClock } from "lucide-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useAuth } from "@/hooks/useAuth";
 import { getVerificationState } from "@/lib/verification.functions";
@@ -77,6 +77,9 @@ export default function Studio() {
                 {(["profile", "tip"] as const).filter(mode => mode === "profile" || pages.tipEnabled).map(mode => <DropdownMenuItem key={mode} onSelect={() => setPageMode(mode)}>{mode === "profile" ? <BadgeCheck className="size-4" /> : <HeartHandshake className="size-4" />}<span className="flex-1">{t(`studio.mode.${mode}`)}</span>{pageMode === mode && <Check className="size-4" />}</DropdownMenuItem>)}
               </DropdownMenuContent></DropdownMenu>;
             })}
+            <Button variant="outline" type="button" onClick={() => nav("/studio/booking")} className="h-auto min-h-12 gap-2 rounded-lg px-3 py-2">
+              <CalendarClock className="size-4 shrink-0" /><span className="text-sm font-medium">{t("studio.nav.booking")}</span>
+            </Button>
           </div>
           <ErrorBoundary label={t("studio.page.title")} inline>
             {variant === "verified" && !unlocked ? (
