@@ -38,3 +38,5 @@
 - Subdirectories (e.g. src/lib) have their own AGENTS.md; read it before changing files there.
 
 - Auth and Studio display text uses the existing area locale bundles merged by the i18n provider; identifiers, stored values and access rules never use translated strings. Why: language changes must not change application behavior.
+- Plan caps and storage quotas come only from `entitlement-engine.ts` (pure) + `entitlement-engine.server.ts` (loads plan + `entitlement_overrides` per user/workspace scope); uploads get URLs only via `/api/upload/presign`; the early-verified promo is a DB trigger on `profiles.verified`. Why: one rule set, and every verification path grants the promo.
+- Scope in the URL (`/studio/personal/<feature>`, `/studio/w/<slug>/<feature>`) is applied through `activateScopeFromUrl` (membership checked server-side); scope switches call `queryClient.clear()`. Why: no cached data crosses personal/workspace scopes.
