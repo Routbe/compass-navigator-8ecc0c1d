@@ -32,6 +32,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QrRouteImport } from './routes/qr'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SelfHostingRouteImport } from './routes/self-hosting'
 import { Route as SignatureRouteImport } from './routes/signature'
 import { Route as SignupRouteImport } from './routes/signup'
@@ -288,6 +289,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const QrRoute = QrRouteImport.update({
   id: '/qr',
   path: '/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SelfHostingRoute = SelfHostingRouteImport.update({
@@ -1088,6 +1094,7 @@ export interface FileRoutesByFullPath {
   '/press': typeof PressRoute
   '/privacy': typeof PrivacyRoute
   '/qr': typeof QrRoute
+  '/security': typeof SecurityRoute
   '/self-hosting': typeof SelfHostingRoute
   '/signature': typeof SignatureRoute
   '/signup': typeof SignupRoute
@@ -1254,6 +1261,7 @@ export interface FileRoutesByTo {
   '/press': typeof PressRoute
   '/privacy': typeof PrivacyRoute
   '/qr': typeof QrRoute
+  '/security': typeof SecurityRoute
   '/self-hosting': typeof SelfHostingRoute
   '/signature': typeof SignatureRoute
   '/signup': typeof SignupRoute
@@ -1419,6 +1427,7 @@ export interface FileRoutesById {
   '/press': typeof PressRoute
   '/privacy': typeof PrivacyRoute
   '/qr': typeof QrRoute
+  '/security': typeof SecurityRoute
   '/self-hosting': typeof SelfHostingRoute
   '/signature': typeof SignatureRoute
   '/signup': typeof SignupRoute
@@ -1588,6 +1597,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/privacy'
     | '/qr'
+    | '/security'
     | '/self-hosting'
     | '/signature'
     | '/signup'
@@ -1754,6 +1764,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/privacy'
     | '/qr'
+    | '/security'
     | '/self-hosting'
     | '/signature'
     | '/signup'
@@ -1918,6 +1929,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/privacy'
     | '/qr'
+    | '/security'
     | '/self-hosting'
     | '/signature'
     | '/signup'
@@ -2087,6 +2099,7 @@ export interface RootRouteChildren {
   PressRoute: typeof PressRoute
   PrivacyRoute: typeof PrivacyRoute
   QrRoute: typeof QrRoute
+  SecurityRoute: typeof SecurityRoute
   SelfHostingRoute: typeof SelfHostingRoute
   SignatureRoute: typeof SignatureRoute
   SignupRoute: typeof SignupRoute
@@ -2334,6 +2347,13 @@ declare module '@tanstack/react-router' {
       path: '/qr'
       fullPath: '/qr'
       preLoaderRoute: typeof QrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/self-hosting': {
@@ -3598,6 +3618,7 @@ const rootRouteChildren: RootRouteChildren = {
   PressRoute: PressRoute,
   PrivacyRoute: PrivacyRoute,
   QrRoute: QrRoute,
+  SecurityRoute: SecurityRoute,
   SelfHostingRoute: SelfHostingRoute,
   SignatureRoute: SignatureRoute,
   SignupRoute: SignupRoute,
