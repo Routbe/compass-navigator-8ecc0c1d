@@ -62,6 +62,8 @@ import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthAuthViewRouteImport } from './routes/auth.$authView'
 import { Route as AuthBlueskyRouteImport } from './routes/auth.bluesky'
 import { Route as AuthContinueRouteImport } from './routes/auth_.continue'
+import { Route as BookEventTypeIdRouteImport } from './routes/book.$eventTypeId'
+import { Route as BookingBookingIdRouteImport } from './routes/booking.$bookingId'
 import { Route as BrandSplatRouteImport } from './routes/brand.$'
 import { Route as ClaimTokenRouteImport } from './routes/claim_.$token'
 import { Route as DevEmailsRouteImport } from './routes/dev.emails'
@@ -98,6 +100,7 @@ import { Route as AuthenticatedDashboardBlueskyRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardDomainsRouteImport } from './routes/_authenticated/dashboard.domains'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard.profile'
 import { Route as AuthenticatedDashboardRoutesRouteImport } from './routes/_authenticated/dashboard.routes'
+import { Route as AuthenticatedStudioBookingRouteImport } from './routes/_authenticated/studio_.booking'
 import { Route as ApiAdminMailCheckRouteImport } from './routes/api_.admin.mail-check'
 import { Route as ApiAuthSplatRouteImport } from './routes/api_.auth.$'
 import { Route as ApiBunqCheckStatusRouteImport } from './routes/api_.bunq.check-status'
@@ -435,6 +438,16 @@ const AuthContinueRoute = AuthContinueRouteImport.update({
   path: '/auth/continue',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookEventTypeIdRoute = BookEventTypeIdRouteImport.update({
+  id: '/book/$eventTypeId',
+  path: '/book/$eventTypeId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingBookingIdRoute = BookingBookingIdRouteImport.update({
+  id: '/booking/$bookingId',
+  path: '/booking/$bookingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrandSplatRoute = BrandSplatRouteImport.update({
   id: '/brand/$',
   path: '/brand/$',
@@ -632,6 +645,12 @@ const AuthenticatedDashboardRoutesRoute =
     id: '/routes',
     path: '/routes',
     getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedStudioBookingRoute =
+  AuthenticatedStudioBookingRouteImport.update({
+    id: '/studio_/booking',
+    path: '/studio/booking',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const ApiAdminMailCheckRoute = ApiAdminMailCheckRouteImport.update({
   id: '/api_/admin/mail-check',
@@ -1078,6 +1097,8 @@ export interface FileRoutesByFullPath {
   '/auth/$authView': typeof AuthAuthViewRoute
   '/auth/bluesky': typeof AuthBlueskyRoute
   '/auth/continue': typeof AuthContinueRoute
+  '/book/$eventTypeId': typeof BookEventTypeIdRoute
+  '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim/$token': typeof ClaimTokenRoute
   '/dev/emails': typeof DevEmailsRoute
@@ -1113,6 +1134,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
+  '/studio/booking': typeof AuthenticatedStudioBookingRoute
   '/api/admin/mail-check': typeof ApiAdminMailCheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/bunq/check-status': typeof ApiBunqCheckStatusRoute
@@ -1236,6 +1258,8 @@ export interface FileRoutesByTo {
   '/auth/$authView': typeof AuthAuthViewRoute
   '/auth/bluesky': typeof AuthBlueskyRoute
   '/auth/continue': typeof AuthContinueRoute
+  '/book/$eventTypeId': typeof BookEventTypeIdRoute
+  '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim/$token': typeof ClaimTokenRoute
   '/dev/emails': typeof DevEmailsRoute
@@ -1270,6 +1294,7 @@ export interface FileRoutesByTo {
   '/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
+  '/studio/booking': typeof AuthenticatedStudioBookingRoute
   '/api/admin/mail-check': typeof ApiAdminMailCheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/bunq/check-status': typeof ApiBunqCheckStatusRoute
@@ -1397,6 +1422,8 @@ export interface FileRoutesById {
   '/auth/$authView': typeof AuthAuthViewRoute
   '/auth/bluesky': typeof AuthBlueskyRoute
   '/auth_/continue': typeof AuthContinueRoute
+  '/book/$eventTypeId': typeof BookEventTypeIdRoute
+  '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim_/$token': typeof ClaimTokenRoute
   '/dev/emails': typeof DevEmailsRoute
@@ -1432,6 +1459,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/_authenticated/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
+  '/_authenticated/studio_/booking': typeof AuthenticatedStudioBookingRoute
   '/api_/admin/mail-check': typeof ApiAdminMailCheckRoute
   '/api_/auth/$': typeof ApiAuthSplatRoute
   '/api_/bunq/check-status': typeof ApiBunqCheckStatusRoute
@@ -1560,6 +1588,8 @@ export interface FileRouteTypes {
     | '/auth/$authView'
     | '/auth/bluesky'
     | '/auth/continue'
+    | '/book/$eventTypeId'
+    | '/booking/$bookingId'
     | '/brand/$'
     | '/claim/$token'
     | '/dev/emails'
@@ -1595,6 +1625,7 @@ export interface FileRouteTypes {
     | '/dashboard/domains'
     | '/dashboard/profile'
     | '/dashboard/routes'
+    | '/studio/booking'
     | '/api/admin/mail-check'
     | '/api/auth/$'
     | '/api/bunq/check-status'
@@ -1718,6 +1749,8 @@ export interface FileRouteTypes {
     | '/auth/$authView'
     | '/auth/bluesky'
     | '/auth/continue'
+    | '/book/$eventTypeId'
+    | '/booking/$bookingId'
     | '/brand/$'
     | '/claim/$token'
     | '/dev/emails'
@@ -1752,6 +1785,7 @@ export interface FileRouteTypes {
     | '/dashboard/domains'
     | '/dashboard/profile'
     | '/dashboard/routes'
+    | '/studio/booking'
     | '/api/admin/mail-check'
     | '/api/auth/$'
     | '/api/bunq/check-status'
@@ -1878,6 +1912,8 @@ export interface FileRouteTypes {
     | '/auth/$authView'
     | '/auth/bluesky'
     | '/auth_/continue'
+    | '/book/$eventTypeId'
+    | '/booking/$bookingId'
     | '/brand/$'
     | '/claim_/$token'
     | '/dev/emails'
@@ -1913,6 +1949,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/domains'
     | '/_authenticated/dashboard/profile'
     | '/_authenticated/dashboard/routes'
+    | '/_authenticated/studio_/booking'
     | '/api_/admin/mail-check'
     | '/api_/auth/$'
     | '/api_/bunq/check-status'
@@ -2029,6 +2066,8 @@ export interface RootRouteChildren {
   AccountAccountViewRoute: typeof AccountAccountViewRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
   AuthContinueRoute: typeof AuthContinueRoute
+  BookEventTypeIdRoute: typeof BookEventTypeIdRoute
+  BookingBookingIdRoute: typeof BookingBookingIdRoute
   BrandSplatRoute: typeof BrandSplatRoute
   ClaimTokenRoute: typeof ClaimTokenRoute
   DevEmailsRoute: typeof DevEmailsRoute
@@ -2468,6 +2507,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthContinueRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$eventTypeId': {
+      id: '/book/$eventTypeId'
+      path: '/book/$eventTypeId'
+      fullPath: '/book/$eventTypeId'
+      preLoaderRoute: typeof BookEventTypeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/$bookingId': {
+      id: '/booking/$bookingId'
+      path: '/booking/$bookingId'
+      fullPath: '/booking/$bookingId'
+      preLoaderRoute: typeof BookingBookingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brand/$': {
       id: '/brand/$'
       path: '/brand/$'
@@ -2719,6 +2772,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/routes'
       preLoaderRoute: typeof AuthenticatedDashboardRoutesRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/studio_/booking': {
+      id: '/_authenticated/studio_/booking'
+      path: '/studio/booking'
+      fullPath: '/studio/booking'
+      preLoaderRoute: typeof AuthenticatedStudioBookingRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/api_/admin/mail-check': {
       id: '/api_/admin/mail-check'
@@ -3391,6 +3451,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDomainsRoute: typeof AuthenticatedDomainsRoute
   AuthenticatedMyDataRoute: typeof AuthenticatedMyDataRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedStudioBookingRoute: typeof AuthenticatedStudioBookingRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -3400,6 +3461,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDomainsRoute: AuthenticatedDomainsRoute,
   AuthenticatedMyDataRoute: AuthenticatedMyDataRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedStudioBookingRoute: AuthenticatedStudioBookingRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -3487,6 +3549,8 @@ const rootRouteChildren: RootRouteChildren = {
   AccountAccountViewRoute: AccountAccountViewRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
   AuthContinueRoute: AuthContinueRoute,
+  BookEventTypeIdRoute: BookEventTypeIdRoute,
+  BookingBookingIdRoute: BookingBookingIdRoute,
   BrandSplatRoute: BrandSplatRoute,
   ClaimTokenRoute: ClaimTokenRoute,
   DevEmailsRoute: DevEmailsRoute,
