@@ -1,4 +1,6 @@
 # Roadmap
+- [ ] PrivacyBadge + /security Trust Center + plaatsingen; locatie/AGPL wachten op bevestiging.
+- [ ] Lokale Conversion Coach: analyzePageConversion (bio/avatar, 3-7 links, CTA, verificatie, steun/boekingen), geen externe AI.
 - [x] 2026-10-28: rondleiding-icoon, coach-voortgangsring, "Extra pagina's", rechten-motor + 0 MB-workspacelimiet + /api/upload/presign, vroege-verificatie-actie, scope-adressen + cache-wissen bij wissel (770 tests, types ok).
 - [ ] Migratie db/105 uitvoeren — wacht op databasesleutel.
 - [ ] Alle bestaande upload-knoppen omzetten naar /api/upload/presign; concept-media pas live bij Publiceren.
