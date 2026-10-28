@@ -4,8 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { pillar, type Pillar, type PillarId } from "@/lib/privacy-pillars";
 import { cn } from "@/lib/utils";
 
-export function PillarDetails({ p, compact = false }: { p: Pillar; compact?: boolean }) {
-  const nl = p.label && pillarLocaleIsNl(p);
+export function PillarDetails({ p, nl, compact = false }: { p: Pillar; nl: boolean; compact?: boolean }) {
   return (
     <div className="space-y-3 text-sm">
       <div>
@@ -30,15 +29,11 @@ export function PillarDetails({ p, compact = false }: { p: Pillar; compact?: boo
   );
 }
 
-function pillarLocaleIsNl(p: Pillar) {
-  return p.how.some((h) => /\b(je|jouw|wordt|we)\b/.test(h));
-}
-
 /** Inline badge; tap or click opens the exact guarantees for one privacy pillar. */
 export function PrivacyBadge({ kind, className }: { kind: PillarId; className?: string }) {
   const { locale } = useI18n();
-  const p = pillar(kind, String(locale ?? "en"));
-  const nl = String(locale ?? "").startsWith("nl");
+  const p = pillar(kind, locale);
+  const nl = locale.startsWith("nl");
   return (
     <Popover>
       <PopoverTrigger
@@ -50,7 +45,7 @@ export function PrivacyBadge({ kind, className }: { kind: PillarId; className?: 
         {p.label}
       </PopoverTrigger>
       <PopoverContent align="start" className="max-h-[70vh] w-[min(22rem,calc(100vw-2rem))] overflow-y-auto">
-        <PillarDetails p={p} compact />
+        <PillarDetails p={p} nl={nl} compact />
         <a href={`/security#${kind}`} className="mt-3 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline">
           {nl ? "Technische details →" : "Technical deep-dive →"}
         </a>
