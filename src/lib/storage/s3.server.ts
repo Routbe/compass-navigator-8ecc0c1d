@@ -139,3 +139,12 @@ export function base64ToBytes(b64: string): Uint8Array {
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
   return out;
 }
+
+/** Short-lived presigned PUT so the browser uploads straight to storage. */
+export async function presignedPutUrl(kind: BucketKind, key: string, contentType: string, expiresSeconds = 300): Promise<string> {
+  const { client, bucket, endpoint } = resolve(kind);
+  const url = new URL(`${endpoint}/${bucket}/${encodeKey(key)}`);
+  url.searchParams.set("X-Amz-Expires", String(expiresSeconds));
+  const signed = await client.sign(url.toString(), { method: "PUT", headers: { "content-type": contentType }, aws: { signQuery: true } });
+  return signed.url;
+}

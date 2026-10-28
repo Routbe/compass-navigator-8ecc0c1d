@@ -116,6 +116,7 @@ import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api_.public
 import { Route as ApiPublicWeatherRouteImport } from './routes/api_.public.weather'
 import { Route as ApiSnapchatStartRouteImport } from './routes/api_.snapchat.start'
 import { Route as ApiSpotifyStartRouteImport } from './routes/api_.spotify.start'
+import { Route as ApiUploadPresignRouteImport } from './routes/api_.upload.presign'
 import { Route as ApiYoutubeStartRouteImport } from './routes/api_.youtube.start'
 import { Route as AuthMastodonCallbackRouteImport } from './routes/auth_.mastodon.callback'
 import { Route as RUAliasRouteImport } from './routes/r.u.$alias'
@@ -125,6 +126,7 @@ import { Route as UUsernameTipRouteImport } from './routes/u.$username.tip'
 import { Route as AuthenticatedConsoleAppsIndexRouteImport } from './routes/_authenticated/console.apps.index'
 import { Route as AuthenticatedConsoleAppsAppIdRouteImport } from './routes/_authenticated/console.apps.$appId'
 import { Route as AuthenticatedConsoleAppsNewRouteImport } from './routes/_authenticated/console.apps.new'
+import { Route as AuthenticatedStudioPersonalFeatureRouteImport } from './routes/_authenticated/studio_.personal.$feature'
 import { Route as ApiPublicAuthProvidersRouteImport } from './routes/api_.public.auth.providers'
 import { Route as ApiPublicBadgeHandleRouteImport } from './routes/api_.public.badge.$handle'
 import { Route as ApiPublicBlueskyCallbackRouteImport } from './routes/api_.public.bluesky.callback'
@@ -171,6 +173,7 @@ import { Route as AuthenticatedConsoleAppsAppIdRedirectsRouteImport } from './ro
 import { Route as AuthenticatedConsoleAppsAppIdSchemaRouteImport } from './routes/_authenticated/console.apps.$appId.schema'
 import { Route as AuthenticatedConsoleAppsAppIdScopesRouteImport } from './routes/_authenticated/console.apps.$appId.scopes'
 import { Route as AuthenticatedConsoleAppsAppIdSecurityRouteImport } from './routes/_authenticated/console.apps.$appId.security'
+import { Route as AuthenticatedStudioWWorkspaceSlugFeatureRouteImport } from './routes/_authenticated/studio_.w.$workspaceSlug.$feature'
 import { Route as ApiPublicBookingsIdActionRouteImport } from './routes/api_.public.bookings.$id.$action'
 
 const IndexRoute = IndexRouteImport.update({
@@ -727,6 +730,11 @@ const ApiSpotifyStartRoute = ApiSpotifyStartRouteImport.update({
   path: '/api/spotify/start',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiUploadPresignRoute = ApiUploadPresignRouteImport.update({
+  id: '/api_/upload/presign',
+  path: '/api/upload/presign',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiYoutubeStartRoute = ApiYoutubeStartRouteImport.update({
   id: '/api_/youtube/start',
   path: '/api/youtube/start',
@@ -774,6 +782,12 @@ const AuthenticatedConsoleAppsNewRoute =
     id: '/new',
     path: '/new',
     getParentRoute: () => AuthenticatedConsoleAppsRoute,
+  } as any)
+const AuthenticatedStudioPersonalFeatureRoute =
+  AuthenticatedStudioPersonalFeatureRouteImport.update({
+    id: '/studio_/personal/$feature',
+    path: '/studio/personal/$feature',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const ApiPublicAuthProvidersRoute = ApiPublicAuthProvidersRouteImport.update({
   id: '/api_/public/auth/providers',
@@ -1038,6 +1052,12 @@ const AuthenticatedConsoleAppsAppIdSecurityRoute =
     path: '/security',
     getParentRoute: () => AuthenticatedConsoleAppsAppIdRoute,
   } as any)
+const AuthenticatedStudioWWorkspaceSlugFeatureRoute =
+  AuthenticatedStudioWWorkspaceSlugFeatureRouteImport.update({
+    id: '/studio_/w/$workspaceSlug/$feature',
+    path: '/studio/w/$workspaceSlug/$feature',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const ApiPublicBookingsIdActionRoute =
   ApiPublicBookingsIdActionRouteImport.update({
     id: '/api_/public/bookings/$id/$action',
@@ -1150,6 +1170,7 @@ export interface FileRoutesByFullPath {
   '/api/public/weather': typeof ApiPublicWeatherRoute
   '/api/snapchat/start': typeof ApiSnapchatStartRoute
   '/api/spotify/start': typeof ApiSpotifyStartRoute
+  '/api/upload/presign': typeof ApiUploadPresignRoute
   '/api/youtube/start': typeof ApiYoutubeStartRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1160,6 +1181,7 @@ export interface FileRoutesByFullPath {
   '/console/': typeof AuthenticatedConsoleIndexRoute
   '/console/apps/$appId': typeof AuthenticatedConsoleAppsAppIdRouteWithChildren
   '/console/apps/new': typeof AuthenticatedConsoleAppsNewRoute
+  '/studio/personal/$feature': typeof AuthenticatedStudioPersonalFeatureRoute
   '/api/public/auth/providers': typeof ApiPublicAuthProvidersRoute
   '/api/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api/public/bluesky/callback': typeof ApiPublicBlueskyCallbackRoute
@@ -1206,6 +1228,7 @@ export interface FileRoutesByFullPath {
   '/console/apps/$appId/schema': typeof AuthenticatedConsoleAppsAppIdSchemaRoute
   '/console/apps/$appId/scopes': typeof AuthenticatedConsoleAppsAppIdScopesRoute
   '/console/apps/$appId/security': typeof AuthenticatedConsoleAppsAppIdSecurityRoute
+  '/studio/w/$workspaceSlug/$feature': typeof AuthenticatedStudioWWorkspaceSlugFeatureRoute
   '/api/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
   '/console/apps/$appId/': typeof AuthenticatedConsoleAppsAppIdIndexRoute
 }
@@ -1310,6 +1333,7 @@ export interface FileRoutesByTo {
   '/api/public/weather': typeof ApiPublicWeatherRoute
   '/api/snapchat/start': typeof ApiSnapchatStartRoute
   '/api/spotify/start': typeof ApiSpotifyStartRoute
+  '/api/upload/presign': typeof ApiUploadPresignRoute
   '/api/youtube/start': typeof ApiYoutubeStartRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1319,6 +1343,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/console': typeof AuthenticatedConsoleIndexRoute
   '/console/apps/new': typeof AuthenticatedConsoleAppsNewRoute
+  '/studio/personal/$feature': typeof AuthenticatedStudioPersonalFeatureRoute
   '/api/public/auth/providers': typeof ApiPublicAuthProvidersRoute
   '/api/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api/public/bluesky/callback': typeof ApiPublicBlueskyCallbackRoute
@@ -1365,6 +1390,7 @@ export interface FileRoutesByTo {
   '/console/apps/$appId/schema': typeof AuthenticatedConsoleAppsAppIdSchemaRoute
   '/console/apps/$appId/scopes': typeof AuthenticatedConsoleAppsAppIdScopesRoute
   '/console/apps/$appId/security': typeof AuthenticatedConsoleAppsAppIdSecurityRoute
+  '/studio/w/$workspaceSlug/$feature': typeof AuthenticatedStudioWWorkspaceSlugFeatureRoute
   '/api/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
   '/console/apps/$appId': typeof AuthenticatedConsoleAppsAppIdIndexRoute
 }
@@ -1475,6 +1501,7 @@ export interface FileRoutesById {
   '/api_/public/weather': typeof ApiPublicWeatherRoute
   '/api_/snapchat/start': typeof ApiSnapchatStartRoute
   '/api_/spotify/start': typeof ApiSpotifyStartRoute
+  '/api_/upload/presign': typeof ApiUploadPresignRoute
   '/api_/youtube/start': typeof ApiYoutubeStartRoute
   '/auth_/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1485,6 +1512,7 @@ export interface FileRoutesById {
   '/_authenticated/console/': typeof AuthenticatedConsoleIndexRoute
   '/_authenticated/console/apps/$appId': typeof AuthenticatedConsoleAppsAppIdRouteWithChildren
   '/_authenticated/console/apps/new': typeof AuthenticatedConsoleAppsNewRoute
+  '/_authenticated/studio_/personal/$feature': typeof AuthenticatedStudioPersonalFeatureRoute
   '/api_/public/auth/providers': typeof ApiPublicAuthProvidersRoute
   '/api_/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api_/public/bluesky/callback': typeof ApiPublicBlueskyCallbackRoute
@@ -1531,6 +1559,7 @@ export interface FileRoutesById {
   '/_authenticated/console/apps/$appId/schema': typeof AuthenticatedConsoleAppsAppIdSchemaRoute
   '/_authenticated/console/apps/$appId/scopes': typeof AuthenticatedConsoleAppsAppIdScopesRoute
   '/_authenticated/console/apps/$appId/security': typeof AuthenticatedConsoleAppsAppIdSecurityRoute
+  '/_authenticated/studio_/w/$workspaceSlug/$feature': typeof AuthenticatedStudioWWorkspaceSlugFeatureRoute
   '/api_/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
   '/_authenticated/console/apps/$appId/': typeof AuthenticatedConsoleAppsAppIdIndexRoute
 }
@@ -1641,6 +1670,7 @@ export interface FileRouteTypes {
     | '/api/public/weather'
     | '/api/snapchat/start'
     | '/api/spotify/start'
+    | '/api/upload/presign'
     | '/api/youtube/start'
     | '/auth/mastodon/callback'
     | '/r/u/$alias'
@@ -1651,6 +1681,7 @@ export interface FileRouteTypes {
     | '/console/'
     | '/console/apps/$appId'
     | '/console/apps/new'
+    | '/studio/personal/$feature'
     | '/api/public/auth/providers'
     | '/api/public/badge/$handle'
     | '/api/public/bluesky/callback'
@@ -1697,6 +1728,7 @@ export interface FileRouteTypes {
     | '/console/apps/$appId/schema'
     | '/console/apps/$appId/scopes'
     | '/console/apps/$appId/security'
+    | '/studio/w/$workspaceSlug/$feature'
     | '/api/public/bookings/$id/$action'
     | '/console/apps/$appId/'
   fileRoutesByTo: FileRoutesByTo
@@ -1801,6 +1833,7 @@ export interface FileRouteTypes {
     | '/api/public/weather'
     | '/api/snapchat/start'
     | '/api/spotify/start'
+    | '/api/upload/presign'
     | '/api/youtube/start'
     | '/auth/mastodon/callback'
     | '/r/u/$alias'
@@ -1810,6 +1843,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/console'
     | '/console/apps/new'
+    | '/studio/personal/$feature'
     | '/api/public/auth/providers'
     | '/api/public/badge/$handle'
     | '/api/public/bluesky/callback'
@@ -1856,6 +1890,7 @@ export interface FileRouteTypes {
     | '/console/apps/$appId/schema'
     | '/console/apps/$appId/scopes'
     | '/console/apps/$appId/security'
+    | '/studio/w/$workspaceSlug/$feature'
     | '/api/public/bookings/$id/$action'
     | '/console/apps/$appId'
   id:
@@ -1965,6 +2000,7 @@ export interface FileRouteTypes {
     | '/api_/public/weather'
     | '/api_/snapchat/start'
     | '/api_/spotify/start'
+    | '/api_/upload/presign'
     | '/api_/youtube/start'
     | '/auth_/mastodon/callback'
     | '/r/u/$alias'
@@ -1975,6 +2011,7 @@ export interface FileRouteTypes {
     | '/_authenticated/console/'
     | '/_authenticated/console/apps/$appId'
     | '/_authenticated/console/apps/new'
+    | '/_authenticated/studio_/personal/$feature'
     | '/api_/public/auth/providers'
     | '/api_/public/badge/$handle'
     | '/api_/public/bluesky/callback'
@@ -2021,6 +2058,7 @@ export interface FileRouteTypes {
     | '/_authenticated/console/apps/$appId/schema'
     | '/_authenticated/console/apps/$appId/scopes'
     | '/_authenticated/console/apps/$appId/security'
+    | '/_authenticated/studio_/w/$workspaceSlug/$feature'
     | '/api_/public/bookings/$id/$action'
     | '/_authenticated/console/apps/$appId/'
   fileRoutesById: FileRoutesById
@@ -2095,6 +2133,7 @@ export interface RootRouteChildren {
   ApiPublicWeatherRoute: typeof ApiPublicWeatherRoute
   ApiSnapchatStartRoute: typeof ApiSnapchatStartRoute
   ApiSpotifyStartRoute: typeof ApiSpotifyStartRoute
+  ApiUploadPresignRoute: typeof ApiUploadPresignRoute
   ApiYoutubeStartRoute: typeof ApiYoutubeStartRoute
   AuthMastodonCallbackRoute: typeof AuthMastodonCallbackRoute
   RUAliasRoute: typeof RUAliasRoute
@@ -2885,6 +2924,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSpotifyStartRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api_/upload/presign': {
+      id: '/api_/upload/presign'
+      path: '/api/upload/presign'
+      fullPath: '/api/upload/presign'
+      preLoaderRoute: typeof ApiUploadPresignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api_/youtube/start': {
       id: '/api_/youtube/start'
       path: '/api/youtube/start'
@@ -2947,6 +2993,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/console/apps/new'
       preLoaderRoute: typeof AuthenticatedConsoleAppsNewRouteImport
       parentRoute: typeof AuthenticatedConsoleAppsRoute
+    }
+    '/_authenticated/studio_/personal/$feature': {
+      id: '/_authenticated/studio_/personal/$feature'
+      path: '/studio/personal/$feature'
+      fullPath: '/studio/personal/$feature'
+      preLoaderRoute: typeof AuthenticatedStudioPersonalFeatureRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/api_/public/auth/providers': {
       id: '/api_/public/auth/providers'
@@ -3270,6 +3323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConsoleAppsAppIdSecurityRouteImport
       parentRoute: typeof AuthenticatedConsoleAppsAppIdRoute
     }
+    '/_authenticated/studio_/w/$workspaceSlug/$feature': {
+      id: '/_authenticated/studio_/w/$workspaceSlug/$feature'
+      path: '/studio/w/$workspaceSlug/$feature'
+      fullPath: '/studio/w/$workspaceSlug/$feature'
+      preLoaderRoute: typeof AuthenticatedStudioWWorkspaceSlugFeatureRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/api_/public/bookings/$id/$action': {
       id: '/api_/public/bookings/$id/$action'
       path: '/api/public/bookings/$id/$action'
@@ -3452,6 +3512,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedMyDataRoute: typeof AuthenticatedMyDataRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedStudioBookingRoute: typeof AuthenticatedStudioBookingRoute
+  AuthenticatedStudioPersonalFeatureRoute: typeof AuthenticatedStudioPersonalFeatureRoute
+  AuthenticatedStudioWWorkspaceSlugFeatureRoute: typeof AuthenticatedStudioWWorkspaceSlugFeatureRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -3462,6 +3524,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedMyDataRoute: AuthenticatedMyDataRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedStudioBookingRoute: AuthenticatedStudioBookingRoute,
+  AuthenticatedStudioPersonalFeatureRoute:
+    AuthenticatedStudioPersonalFeatureRoute,
+  AuthenticatedStudioWWorkspaceSlugFeatureRoute:
+    AuthenticatedStudioWWorkspaceSlugFeatureRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -3578,6 +3644,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicWeatherRoute: ApiPublicWeatherRoute,
   ApiSnapchatStartRoute: ApiSnapchatStartRoute,
   ApiSpotifyStartRoute: ApiSpotifyStartRoute,
+  ApiUploadPresignRoute: ApiUploadPresignRoute,
   ApiYoutubeStartRoute: ApiYoutubeStartRoute,
   AuthMastodonCallbackRoute: AuthMastodonCallbackRoute,
   RUAliasRoute: RUAliasRoute,

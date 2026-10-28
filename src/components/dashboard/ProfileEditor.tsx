@@ -115,6 +115,7 @@ import { MAX_FAVORITES } from "@/lib/favorites";
 import { ProfileView } from "@/components/profile/ProfileView";
 import { LayerStudioAccordion } from "@/components/studio/LayerStudioAccordion";
 import { TipPagePanel } from "@/components/dashboard/TipPagePanel";
+import { ExtraPagesPanel } from "@/components/dashboard/ExtraPagesPanel";
 import {
   checkStudioHandle,
   getStudioAnalytics,
@@ -1776,7 +1777,7 @@ export function ProfileEditor({ variant = "verified", pageMode = "profile", onPa
                   <span className="text-base font-medium">{t("studio.editor.support")}</span>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-4 pb-5">
-                  <TipPagePanel onEnabledChange={setTipEnabled} />
+                  <ExtraPagesPanel handle={normalized} onTipEnabledChange={setTipEnabled} />
                 </AccordionContent>
               </AccordionItem>
 

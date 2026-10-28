@@ -161,3 +161,21 @@ export const revokeInvite = createServerFn({ method: "POST" })
               where id = ${data.inviteId} and workspace_id = ${data.workspaceId} and status = 'pending'`;
     return { ok: true as const };
   });
+
+/** Activates the scope named in the URL. Membership is checked server-side; unknown slugs are refused. */
+export const activateScopeFromUrl = createServerFn({ method: "POST" })
+  .middleware([requireAuth])
+  .inputValidator((d) => z.object({ workspaceSlug: z.string().trim().max(40).nullable() }).parse(d))
+  .handler(async ({ data, context }) => {
+    const { sql } = await import("@/lib/neon");
+    const { getWorkspaceRole, setActiveWorkspaceCookie } = await import("./workspaces.server");
+    if (!data.workspaceSlug) {
+      await setActiveWorkspaceCookie(null);
+      return { ok: true as const, workspaceId: null };
+    }
+    const rows = (await sql`select id from public.workspaces where slug = ${data.workspaceSlug} limit 1`) as { id: string }[];
+    const id = rows[0]?.id;
+    if (!id || !(await getWorkspaceRole(context.userId, id))) throw new Error("Forbidden");
+    await setActiveWorkspaceCookie(id);
+    return { ok: true as const, workspaceId: id };
+  });

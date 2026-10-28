@@ -71,16 +71,21 @@ export function ConversionCoachFab(props: Props) {
           style={bottom}
           className={cn(
             "fixed right-3 z-40 flex min-h-12 touch-manipulation items-center gap-2 rounded-full border border-border bg-card p-2 shadow-lg transition-all md:!bottom-5 md:right-5 md:hover:scale-105",
-            compact ? "opacity-70" : "pr-4",
+            compact ? "p-1" : "pr-4",
           )}
         >
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
-            <Lightbulb className="h-4 w-4 text-primary" aria-hidden />
-            {score < 100 && (
-              <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-card" />
-            )}
+          <span className="relative flex h-10 w-10 items-center justify-center">
+            <svg viewBox="0 0 40 40" className="absolute inset-0 -rotate-90" aria-hidden>
+              <circle cx="20" cy="20" r="17" fill="none" strokeWidth="3" className="stroke-muted" />
+              <circle cx="20" cy="20" r="17" fill="none" strokeWidth="3" strokeLinecap="round"
+                className="stroke-primary transition-[stroke-dashoffset] duration-500"
+                strokeDasharray={2 * Math.PI * 17} strokeDashoffset={2 * Math.PI * 17 * (1 - Math.min(100, Math.max(0, score)) / 100)} />
+            </svg>
+            {compact
+              ? <span className="text-[10px] font-bold tabular-nums">{score}%</span>
+              : <Lightbulb className="h-4 w-4 text-primary" aria-hidden />}
           </span>
-          {!compact && <span className="text-sm font-semibold tabular-nums">{score}/100</span>}
+          {!compact && <span className="text-sm font-semibold tabular-nums">{score}% voltooid</span>}
         </button>
       )}
       <Sheet open={open} onOpenChange={setOpen}>

@@ -1,4 +1,10 @@
 # Roadmap
+- [x] 2026-10-28: rondleiding-icoon, coach-voortgangsring, "Extra pagina's", rechten-motor + 0 MB-workspacelimiet + /api/upload/presign, vroege-verificatie-actie, scope-adressen + cache-wissen bij wissel (770 tests, types ok).
+- [ ] Migratie db/100 uitvoeren — wacht op databasesleutel.
+- [ ] Alle bestaande upload-knoppen omzetten naar /api/upload/presign; concept-media pas live bij Publiceren.
+- [ ] Alle data-functies (apps, QR, links, statistieken, instellingen) filteren op workspace_id null/exact + lektests.
+- [ ] Inhoud/Vormgeving/Statistieken-tabs per pagina (tip, vragen, boekingen) altijd zichtbaar; knop "Plus-tegoed inzetten".
+- [ ] Ingelogde controle van alles hierboven — wacht op ROUT-sessie.
 - [x] 2026-10-28: e-mailbezorgbaarheid (ROUT-badge, Gmail-actie, disclaimer, platte tekst, geen tracking) gecontroleerd; 95 e-mailtests ok.
 - [x] 2026-10-28: steunpagina-rondleiding wijst nu naar echte velden.
 - [x] 2026-10-28: QR voor alias, direct opslaan, prikbord zichtbaar, groen vinkje-popover, ronde koppelingen, galerijteller+links, feed-fallback + Binnenkort.
