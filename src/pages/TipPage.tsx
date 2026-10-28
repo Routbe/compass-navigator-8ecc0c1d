@@ -1,3 +1,4 @@
+import { PrivacyBadge } from "@/components/PrivacyBadge";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
@@ -144,6 +145,7 @@ export default function TipPage() {
           <UserAvatar src={page.avatarUrl} name={title} className="h-20 w-20 ring-1 ring-border" />
           <h1 className="font-display text-2xl tracking-tight">Steun {title}</h1>
           {page.message && <p className="text-sm text-muted-foreground">{page.message}</p>}
+          <PrivacyBadge kind="sovereign-identity" />
         </header>
 
         {photos.length > 0 && (

@@ -34,6 +34,7 @@ export async function publicSlots(id: string, now = new Date()): Promise<string[
   const et = await publicEventType(id);
   if (!et) return [];
   const collective = et.rules.routingStrategy === "COLLECTIVE";
+  await refreshStaleHosts(id, now);
   const days = (await sql`select c.day::text as day,
       (case when ${collective} then bit_and(c.free_bits) else bit_or(c.free_bits) end)::text as bits,
       count(*)::int as hosts
@@ -71,4 +72,23 @@ export async function bookingSummary(id: string) {
     endUtc: new Date(String(r["end_utc"])).toISOString(), locationKind: String(r["location_kind"]),
     locationValue: r["location_value"] ? String(r["location_value"]) : null,
   };
+}
+
+/** Lazy fallback: recompute hosts whose cache is missing or older than 5 minutes, bounded so a page stays fast. */
+async function refreshStaleHosts(eventTypeId: string, now: Date): Promise<void> {
+  try {
+    const { isAvailabilityStale, LAZY_RECOMPUTE_MAX_HOSTS } = await import("./staleness");
+    const hosts = (await sql`select h.user_id::text as user_id, max(c.computed_at)::text as computed_at
+      from public.booking_event_type_hosts h
+      left join public.availability_cache c on c.user_id = h.user_id
+      where h.event_type_id = ${eventTypeId}::uuid group by h.user_id`) as { user_id: string; computed_at: string | null }[];
+    const stale = hosts.filter((h) => isAvailabilityStale(h.computed_at, now)).slice(0, LAZY_RECOMPUTE_MAX_HOSTS);
+    if (!stale.length) return;
+    const { recomputeUser } = await import("./recompute.server");
+    await Promise.all(stale.map((h) => recomputeUser(h.user_id, now).catch((e) => {
+      console.error("[booking] lazy recompute failed", e instanceof Error ? e.message : "unknown");
+    })));
+  } catch (e) {
+    console.error("[booking] stale check failed", e instanceof Error ? e.message : "unknown");
+  }
 }

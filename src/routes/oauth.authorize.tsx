@@ -1,6 +1,7 @@
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { PrivacyBadge } from "@/components/PrivacyBadge";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useAuth } from "@/hooks/useAuth";
@@ -307,6 +308,7 @@ function AuthorizePage() {
           {t("auth.consent.title", { name: appName })}
         </h1>
         <p className="mt-1 text-center text-sm text-muted-foreground">{t("auth.consent.identity")}</p>
+        <div className="mt-3 flex justify-center"><PrivacyBadge kind="sovereign-identity" /></div>
 
         {/* Ingelogd als */}
         <div className="mt-6 rounded-2xl border border-border bg-background/60 p-4">

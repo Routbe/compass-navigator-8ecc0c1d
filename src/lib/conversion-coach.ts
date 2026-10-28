@@ -180,3 +180,48 @@ export function auditProfile(input: ConversionInput): ConversionAudit {
     return { score, status: "growing", label: "Groeiprofiel", tone: "yellow", fixes };
   return { score, status: "magnet", label: "Conversie-Magneet", tone: "green", fixes };
 }
+
+/* ------------------------------------------------------------------ */
+/* Lokale checklist: deterministisch, geen externe calls                */
+/* ------------------------------------------------------------------ */
+
+export interface PageConversionData {
+  avatarUrl: string | null;
+  bio: string | null;
+  blocks: ProfileBlock[];
+  verified?: boolean;
+  /** Steunpagina actief of een boekingsblok aanwezig. */
+  extraPageActive?: boolean;
+}
+
+export interface ConversionCheck {
+  id: "avatar" | "bio" | "link_count" | "primary_cta" | "verified" | "extra_page";
+  ok: boolean;
+  weight: number;
+  advice: string;
+}
+
+export const OPTIMAL_LINKS = { min: 3, max: 7 } as const;
+
+/** Rule engine for the coach ring. Pure and local: page content never leaves the app. */
+export function analyzePageConversion(page: PageConversionData): { percent: number; checks: ConversionCheck[]; todo: ConversionCheck[] } {
+  const active = page.blocks.filter((b) => !b.hidden).length;
+  const hasBooking = page.blocks.some((b) => !b.hidden && ["booking_request", "calcom", "calendly"].includes(b.kind));
+  const checks: ConversionCheck[] = [
+    { id: "avatar", ok: Boolean(page.avatarUrl), weight: 15, advice: "Voeg een profielfoto toe: gezichten wekken vertrouwen." },
+    { id: "bio", ok: (page.bio ?? "").trim().length >= 20, weight: 15, advice: "Schrijf een bio van minstens 20 tekens: wie ben je en wat bied je?" },
+    {
+      id: "link_count",
+      ok: active >= OPTIMAL_LINKS.min && active <= OPTIMAL_LINKS.max,
+      weight: 20,
+      advice: active < OPTIMAL_LINKS.min
+        ? `Je hebt ${active} actieve link${active === 1 ? "" : "s"}; ${OPTIMAL_LINKS.min}–${OPTIMAL_LINKS.max} werkt het best.`
+        : `Je hebt ${active} actieve links; beperk tot ${OPTIMAL_LINKS.max} zodat bezoekers sneller kiezen.`,
+    },
+    { id: "primary_cta", ok: hasPrimaryAction(page.blocks), weight: 25, advice: "Stel één hoofdactie in, zoals boeken, contact of steun." },
+    { id: "verified", ok: Boolean(page.verified), weight: 10, advice: "Verifieer je profiel voor het blauwe vinkje." },
+    { id: "extra_page", ok: Boolean(page.extraPageActive) || hasBooking, weight: 15, advice: "Activeer een steunpagina of boekingen voor een directe conversie." },
+  ];
+  const percent = checks.reduce((sum, c) => sum + (c.ok ? c.weight : 0), 0);
+  return { percent, checks, todo: checks.filter((c) => !c.ok) };
+}

@@ -36,6 +36,8 @@ function relative(iso: string | null, locale: string) {
   return rtf.format(Math.round(diff / 1440), "day");
 }
 
+import { PrivacyBadge } from "@/components/PrivacyBadge";
+
 export default function BookingStudio() {
   const { t } = useI18n();
   const q = useStudio();
@@ -47,6 +49,7 @@ export default function BookingStudio() {
         <p className="py-10 text-center text-sm text-muted-foreground">{t("booking.err.generic")}</p>
       ) : (
         <Tabs defaultValue="requests" className="space-y-6">
+          <PrivacyBadge kind="zk-pii" />
           <TabsList className="flex w-full flex-wrap justify-start gap-1">
             <TabsTrigger value="requests">{t("booking.tab.requests")}</TabsTrigger>
             <TabsTrigger value="types">{t("booking.tab.types")}</TabsTrigger>
