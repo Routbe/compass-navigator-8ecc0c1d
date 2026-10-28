@@ -536,5 +536,6 @@
   "booking.done.requestedBody": "You will get an email once the request is confirmed.",
   "booking.done.pending": "Payment is being processed",
   "booking.done.cancelled": "This booking was cancelled or expired.",
-  "booking.done.ics": "Add to my calendar (.ics)"
+  "booking.done.ics": "Add to my calendar (.ics)",
+  "studio.nav.booking": "Bookings"
 }
