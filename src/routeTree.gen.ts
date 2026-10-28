@@ -116,6 +116,7 @@ import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api_.public
 import { Route as ApiPublicWeatherRouteImport } from './routes/api_.public.weather'
 import { Route as ApiSnapchatStartRouteImport } from './routes/api_.snapchat.start'
 import { Route as ApiSpotifyStartRouteImport } from './routes/api_.spotify.start'
+import { Route as ApiUploadPresignRouteImport } from './routes/api_.upload.presign'
 import { Route as ApiYoutubeStartRouteImport } from './routes/api_.youtube.start'
 import { Route as AuthMastodonCallbackRouteImport } from './routes/auth_.mastodon.callback'
 import { Route as RUAliasRouteImport } from './routes/r.u.$alias'
@@ -727,6 +728,11 @@ const ApiSpotifyStartRoute = ApiSpotifyStartRouteImport.update({
   path: '/api/spotify/start',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiUploadPresignRoute = ApiUploadPresignRouteImport.update({
+  id: '/api_/upload/presign',
+  path: '/api/upload/presign',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiYoutubeStartRoute = ApiYoutubeStartRouteImport.update({
   id: '/api_/youtube/start',
   path: '/api/youtube/start',
@@ -1150,6 +1156,7 @@ export interface FileRoutesByFullPath {
   '/api/public/weather': typeof ApiPublicWeatherRoute
   '/api/snapchat/start': typeof ApiSnapchatStartRoute
   '/api/spotify/start': typeof ApiSpotifyStartRoute
+  '/api/upload/presign': typeof ApiUploadPresignRoute
   '/api/youtube/start': typeof ApiYoutubeStartRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1310,6 +1317,7 @@ export interface FileRoutesByTo {
   '/api/public/weather': typeof ApiPublicWeatherRoute
   '/api/snapchat/start': typeof ApiSnapchatStartRoute
   '/api/spotify/start': typeof ApiSpotifyStartRoute
+  '/api/upload/presign': typeof ApiUploadPresignRoute
   '/api/youtube/start': typeof ApiYoutubeStartRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1475,6 +1483,7 @@ export interface FileRoutesById {
   '/api_/public/weather': typeof ApiPublicWeatherRoute
   '/api_/snapchat/start': typeof ApiSnapchatStartRoute
   '/api_/spotify/start': typeof ApiSpotifyStartRoute
+  '/api_/upload/presign': typeof ApiUploadPresignRoute
   '/api_/youtube/start': typeof ApiYoutubeStartRoute
   '/auth_/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/r/u/$alias': typeof RUAliasRoute
@@ -1641,6 +1650,7 @@ export interface FileRouteTypes {
     | '/api/public/weather'
     | '/api/snapchat/start'
     | '/api/spotify/start'
+    | '/api/upload/presign'
     | '/api/youtube/start'
     | '/auth/mastodon/callback'
     | '/r/u/$alias'
@@ -1801,6 +1811,7 @@ export interface FileRouteTypes {
     | '/api/public/weather'
     | '/api/snapchat/start'
     | '/api/spotify/start'
+    | '/api/upload/presign'
     | '/api/youtube/start'
     | '/auth/mastodon/callback'
     | '/r/u/$alias'
@@ -1965,6 +1976,7 @@ export interface FileRouteTypes {
     | '/api_/public/weather'
     | '/api_/snapchat/start'
     | '/api_/spotify/start'
+    | '/api_/upload/presign'
     | '/api_/youtube/start'
     | '/auth_/mastodon/callback'
     | '/r/u/$alias'
@@ -2095,6 +2107,7 @@ export interface RootRouteChildren {
   ApiPublicWeatherRoute: typeof ApiPublicWeatherRoute
   ApiSnapchatStartRoute: typeof ApiSnapchatStartRoute
   ApiSpotifyStartRoute: typeof ApiSpotifyStartRoute
+  ApiUploadPresignRoute: typeof ApiUploadPresignRoute
   ApiYoutubeStartRoute: typeof ApiYoutubeStartRoute
   AuthMastodonCallbackRoute: typeof AuthMastodonCallbackRoute
   RUAliasRoute: typeof RUAliasRoute
@@ -2885,6 +2898,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSpotifyStartRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api_/upload/presign': {
+      id: '/api_/upload/presign'
+      path: '/api/upload/presign'
+      fullPath: '/api/upload/presign'
+      preLoaderRoute: typeof ApiUploadPresignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api_/youtube/start': {
       id: '/api_/youtube/start'
       path: '/api/youtube/start'
@@ -3578,6 +3598,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicWeatherRoute: ApiPublicWeatherRoute,
   ApiSnapchatStartRoute: ApiSnapchatStartRoute,
   ApiSpotifyStartRoute: ApiSpotifyStartRoute,
+  ApiUploadPresignRoute: ApiUploadPresignRoute,
   ApiYoutubeStartRoute: ApiYoutubeStartRoute,
   AuthMastodonCallbackRoute: AuthMastodonCallbackRoute,
   RUAliasRoute: RUAliasRoute,
