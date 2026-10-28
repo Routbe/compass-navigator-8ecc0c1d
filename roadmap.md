@@ -1,6 +1,6 @@
 # Roadmap
 - [x] 2026-10-28: rondleiding-icoon, coach-voortgangsring, "Extra pagina's", rechten-motor + 0 MB-workspacelimiet + /api/upload/presign, vroege-verificatie-actie, scope-adressen + cache-wissen bij wissel (770 tests, types ok).
-- [ ] Migratie db/100 uitvoeren — wacht op databasesleutel.
+- [ ] Migratie db/105 uitvoeren — wacht op databasesleutel.
 - [ ] Alle bestaande upload-knoppen omzetten naar /api/upload/presign; concept-media pas live bij Publiceren.
 - [ ] Alle data-functies (apps, QR, links, statistieken, instellingen) filteren op workspace_id null/exact + lektests.
 - [ ] Inhoud/Vormgeving/Statistieken-tabs per pagina (tip, vragen, boekingen) altijd zichtbaar; knop "Plus-tegoed inzetten".
