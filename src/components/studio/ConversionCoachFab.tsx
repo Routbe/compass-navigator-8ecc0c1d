@@ -4,7 +4,7 @@ import { Accordion } from "@/components/ui/accordion";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { auditProfile, hasPrimaryAction } from "@/lib/conversion-coach";
+import { analyzePageConversion } from "@/lib/conversion-coach";
 import { cn } from "@/lib/utils";
 import { ConversionCoachAccordion } from "./ConversionCoachAccordion";
 
@@ -18,17 +18,8 @@ export function ConversionCoachFab(props: Props) {
   const [compact, setCompact] = useState(false);
   const isMobile = useIsMobile();
   const idle = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { blocks, avatarUrl, bio, prefs } = props;
-  const score = auditProfile({
-    blocks,
-    avatarUrl,
-    bio,
-    hasPrimaryAction: hasPrimaryAction(blocks),
-    highlightActive: prefs.ctaEffect !== "none" && Boolean(prefs.ctaBlockId),
-    metaTitle: prefs.metaTitle,
-    metaDescription: prefs.metaDescription,
-    ogImageUrl: prefs.ogImageUrl,
-  }).score;
+  const { blocks, avatarUrl, bio } = props;
+  const score = analyzePageConversion({ blocks, avatarUrl, bio }).percent;
 
   useEffect(() => {
     setHidden(window.localStorage.getItem(HIDE_KEY) === "1");
