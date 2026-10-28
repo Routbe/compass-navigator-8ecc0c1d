@@ -13,3 +13,7 @@ create unique index if not exists entitlement_overrides_scope_key_uidx
   on public.entitlement_overrides (scope_type, scope_id, entitlement_key);
 
 alter table public.profiles add column if not exists is_early_verified boolean not null default false;
+
+-- Assets carry their scope: null = personal, otherwise the owning workspace.
+alter table public.user_assets add column if not exists workspace_id uuid references public.workspaces(id) on delete cascade;
+create index if not exists user_assets_workspace_idx on public.user_assets (workspace_id);
