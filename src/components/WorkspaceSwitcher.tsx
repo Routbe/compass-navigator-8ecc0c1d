@@ -4,6 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, ChevronsUpDown, Plus, User, Users } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
+import { featureForPath, scopedPath } from "@/lib/scope-routes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { createWorkspace, getWorkspaceContext, setActiveWorkspace } from "@/lib/workspaces.functions";
 
@@ -18,6 +20,7 @@ export function useWorkspaceContext() {
 export function WorkspaceSwitcher({ alwaysShow = false }: { alwaysShow?: boolean }) {
   const { t } = useI18n();
   const qc = useQueryClient();
+  const navigate = useNavigate();
   const { data } = useWorkspaceContext();
   const setActive = useServerFn(setActiveWorkspace);
   const create = useServerFn(createWorkspace);
@@ -29,7 +32,10 @@ export function WorkspaceSwitcher({ alwaysShow = false }: { alwaysShow?: boolean
     setBusy(true);
     try {
       await setActive({ data: { workspaceId } });
-      await qc.invalidateQueries();
+      await qc.cancelQueries();
+      qc.clear();
+      const slug = data?.workspaces.find((w) => w.id === workspaceId)?.slug ?? null;
+      void navigate({ to: scopedPath(slug, featureForPath(window.location.pathname)) as never });
     } catch {
       toast.error(t("workspace.switchError"));
     } finally {
