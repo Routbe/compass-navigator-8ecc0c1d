@@ -115,7 +115,6 @@ import { MAX_FAVORITES } from "@/lib/favorites";
 import { ProfileView } from "@/components/profile/ProfileView";
 import { LayerStudioAccordion } from "@/components/studio/LayerStudioAccordion";
 import { TipPagePanel } from "@/components/dashboard/TipPagePanel";
-import { getMyTipSetup } from "@/lib/tip-page.functions";
 import { ExtraPagesPanel } from "@/components/dashboard/ExtraPagesPanel";
 import {
   checkStudioHandle,
@@ -168,10 +167,6 @@ export function ProfileEditor({ variant = "verified", pageMode = "profile", onPa
   /** Studio-modus: het profiel zelf of de steunpagina (rout.be/<handle>/tip). */
   const editMode = pageMode;
   const [tipEnabled, setTipEnabled] = useState(false);
-  const loadTipSetup = useServerFn(getMyTipSetup);
-  useEffect(() => {
-    void loadTipSetup().then((d) => setTipEnabled(Boolean(d.settings?.enabled))).catch(() => {});
-  }, [loadTipSetup]);
   const loadTipSetup = useServerFn(getMyTipSetup);
   // Welke accordion open staat op het tabblad "Settings & verified" — de
   // potlood-knop in de kopbalk stuurt hier rechtstreeks op.
