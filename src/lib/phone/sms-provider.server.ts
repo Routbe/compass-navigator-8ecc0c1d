@@ -90,7 +90,7 @@ export function getSmsSender(): SmsSender | null {
   return {
     id,
     async send(to, text) {
-      const res = await fetch("https://api.brevo.com/v3/transactionalSMS/sms", {
+      const res = await fetch("https://api.brevo.com/v3/transactionalSMS/send", {
         method: "POST",
         headers: { "api-key": key, "content-type": "application/json" },
         body: JSON.stringify({ sender: from, recipient: to, content: text, type: "transactional" }),

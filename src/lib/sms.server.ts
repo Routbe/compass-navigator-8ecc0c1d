@@ -7,7 +7,7 @@
 
 import { brevoKeyStatus, describeBrevoFailure } from "./brevo-key";
 
-const BREVO_SMS_ENDPOINT = "https://api.brevo.com/v3/transactionalSMS/sms";
+const BREVO_SMS_ENDPOINT = "https://api.brevo.com/v3/transactionalSMS/send";
 const MAX_ATTEMPTS = 3;
 const BACKOFF_MS = [400, 1200];
 
